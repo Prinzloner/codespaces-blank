@@ -1,16 +1,592 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novara — Drive the Future</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loner Prime - Exclusive Network</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Orbitron (Futuristic Display) & Inter (Clean UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tailwind Configuration with your exact hex palette & accents -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              100: '#A7EBF2', // Ice Blue
+              200: '#54ACBF', // Soft Teal
+              300: '#26658C', // Steel Blue
+              400: '#023859', // Deep Ocean
+              500: '#011C40', // Midnight Navy
+              orange: '#FF5722', // Sharp vibrant accent
+              'orange-hover': '#E64A19'
+            }
+          },
+          fontFamily: {
+            orbitron: ['Orbitron', 'sans-serif'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Stylized LO Glow Effect */
+    .glow-lo {
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 10px #A7EBF2, 0 0 20px #54ACBF, 0 0 35px #54ACBF;
+    }
+    .dark .glow-lo {
+      text-shadow: 0 0 12px #A7EBF2, 0 0 25px #26658C, 0 0 40px #FF5722;
+    }
+
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    .dark ::-webkit-scrollbar-track {
+      background: #011C40;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #26658C;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #54ACBF;
+    }
+  </style>
 </head>
-<body>
-    <h1>Novara</h1>
-    <p><em>"Drive the future."</em></p>
-    
-    <p>Welcome to Ghana's premier destination for next-generation vehicles. Experience innovation, luxury, and electric performance like never before.</p>
-    
-    <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80" alt="Futuristic Concept Car">
+
+<body class="bg-slate-100 dark:bg-brand-500 text-slate-800 dark:text-brand-100 font-sans min-h-screen flex flex-col transition-colors duration-300">
+
+  <!-- ================================================================= -->
+  <!-- 1. TOP NAVIGATION BAR                                            -->
+  <!-- ================================================================= -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-brand-500/90 backdrop-blur-md border-b border-brand-200/30 dark:border-brand-400 px-4 lg:px-8 py-3 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3">
+        <a href="#" class="text-2xl lg:text-3xl font-extrabold tracking-wider flex items-center">
+          <span class="glow-lo text-brand-orange text-3xl lg:text-4xl mr-1 font-black">LO</span>
+          <span class="font-orbitron text-brand-400 dark:text-white tracking-widest">NER PRIME</span>
+        </a>
+      </div>
+
+      <!-- Navigation Tabs & Actions -->
+      <div class="flex items-center gap-2 sm:gap-4">
+        <!-- Navigation Buttons -->
+        <nav class="hidden md:flex items-center space-x-1 bg-brand-100/30 dark:bg-brand-400/40 p-1 rounded-xl border border-brand-300/30">
+          <button onclick="switchTab('feed')" id="tab-feed-btn" class="px-4 py-2 rounded-lg font-medium text-sm transition-all bg-brand-orange text-white shadow-md">
+            <i class="fa-solid fa-layer-group mr-1.5"></i> Social Feed
+          </button>
+          <button onclick="switchTab('chat')" id="tab-chat-btn" class="px-4 py-2 rounded-lg font-medium text-sm transition-all text-brand-400 dark:text-brand-100 hover:text-brand-orange dark:hover:text-white">
+            <i class="fa-solid fa-comments mr-1.5"></i> WhatsApp Chat
+          </button>
+        </nav>
+
+        <!-- Invite Button -->
+        <button onclick="openModal('inviteModal')" class="bg-brand-200/20 hover:bg-brand-200/40 dark:bg-brand-400/60 dark:hover:bg-brand-400 text-brand-400 dark:text-brand-100 border border-brand-300/40 px-3.5 py-2 rounded-xl text-sm font-semibold transition flex items-center gap-2">
+          <i class="fa-solid fa-user-plus text-brand-orange"></i>
+          <span class="hidden sm:inline">Invite</span>
+        </button>
+
+        <!-- Dark/Light Mode Toggle Switch -->
+        <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl border border-brand-300/30 bg-brand-100/50 dark:bg-brand-400/60 text-brand-400 dark:text-brand-100 hover:text-brand-orange transition" title="Toggle Theme">
+          <i id="theme-icon" class="fa-solid fa-sun"></i>
+        </button>
+
+        <!-- Admin / User Lock Status -->
+        <button onclick="openModal('authModal')" id="auth-status-btn" class="bg-brand-orange hover:bg-brand-orange-hover text-white text-sm font-semibold px-4 py-2 rounded-xl shadow-lg shadow-brand-orange/30 transition flex items-center gap-2">
+          <i class="fa-solid fa-lock"></i>
+          <span>Login / Verify</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Secondary Tab Bar -->
+  <div class="md:hidden bg-white dark:bg-brand-400 border-b border-brand-300/30 px-4 py-2 flex justify-around">
+    <button onclick="switchTab('feed')" class="text-sm font-bold flex items-center gap-2 text-brand-orange">
+      <i class="fa-solid fa-layer-group"></i> Feed
+    </button>
+    <button onclick="switchTab('chat')" class="text-sm font-bold flex items-center gap-2 text-slate-500 dark:text-brand-200">
+      <i class="fa-solid fa-comments"></i> Messages
+    </button>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- 2. MAIN APP CONTENT CONTAINER                                     -->
+  <!-- ================================================================= -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-6 grid grid-cols-1 gap-6">
+
+    <!-- ------------------------------------------------------------- -->
+    <!-- SECTION A: MEDIA & SOCIAL FEED TAB                           -->
+    <!-- ------------------------------------------------------------- -->
+    <section id="section-feed" class="w-full max-w-3xl mx-auto space-y-6">
+      
+      <!-- Create Post Box -->
+      <div class="bg-white dark:bg-brand-400 rounded-2xl p-4 shadow-xl border border-brand-200/40 dark:border-brand-300/30">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-brand-orange flex items-center justify-center font-bold text-white shadow">
+            LP
+          </div>
+          <input type="text" id="postInputText" placeholder="Share an update, link, or thought with Loner Prime members..." class="w-full bg-slate-100 dark:bg-brand-500 text-sm rounded-xl px-4 py-2.5 outline-none border border-transparent focus:border-brand-orange transition dark:text-white" />
+        </div>
+
+        <!-- Hidden inputs for simulated media upload -->
+        <input type="file" id="mediaFileInput" accept="image/*,video/*" class="hidden" onchange="handleMediaSelected(event)" />
+        
+        <div id="mediaPreviewContainer" class="hidden relative mb-3 rounded-xl overflow-hidden border border-brand-300 max-h-60 bg-black flex items-center justify-center">
+          <img id="imagePreview" src="" class="max-h-60 w-auto object-contain hidden" />
+          <video id="videoPreview" controls class="max-h-60 w-auto hidden"></video>
+          <button onclick="clearMediaPreview()" class="absolute top-2 right-2 bg-black/70 text-white rounded-full p-1.5 hover:bg-brand-orange">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-brand-300/30">
+          <div class="flex gap-2">
+            <button onclick="document.getElementById('mediaFileInput').click()" class="text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg bg-brand-100/50 dark:bg-brand-500/60 hover:bg-brand-200/40 text-brand-300 dark:text-brand-100 transition flex items-center gap-2">
+              <i class="fa-solid fa-image text-brand-200"></i> Photo / Video
+            </button>
+          </div>
+          <button onclick="publishPost()" class="bg-brand-orange hover:bg-brand-orange-hover text-white text-xs sm:text-sm font-bold px-5 py-2 rounded-xl transition shadow-md shadow-brand-orange/30">
+            Post Update
+          </button>
+        </div>
+      </div>
+
+      <!-- Feed Stream Container -->
+      <div id="feedStream" class="space-y-6">
+        <!-- Posts are rendered dynamically via JavaScript -->
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------- -->
+    <!-- SECTION B: WHATSAPP STYLE MESSAGING TAB                       -->
+    <!-- ------------------------------------------------------------- -->
+    <section id="section-chat" class="hidden w-full max-w-5xl mx-auto h-[78vh] bg-white dark:bg-brand-400 rounded-2xl shadow-2xl border border-brand-200/40 dark:border-brand-300/30 flex overflow-hidden">
+      
+      <!-- Left Sidebar: Chat Channels / Contacts -->
+      <aside class="w-1/3 border-r border-slate-200 dark:border-brand-300/30 flex flex-col bg-slate-50 dark:bg-brand-500/50">
+        <div class="p-3.5 border-b border-slate-200 dark:border-brand-300/30 flex items-center justify-between">
+          <h3 class="font-orbitron font-bold text-sm tracking-wide text-brand-400 dark:text-brand-100">CHATS</h3>
+          <button class="text-brand-orange hover:opacity-80 text-sm"><i class="fa-solid fa-pen-to-square"></i></button>
+        </div>
+        
+        <!-- Channels List -->
+        <div class="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-brand-300/10">
+          <div onclick="selectChatChannel('Prime Network Main')" class="p-3.5 flex items-center gap-3 cursor-pointer bg-brand-100/30 dark:bg-brand-300/20 border-l-4 border-brand-orange">
+            <div class="w-10 h-10 rounded-full bg-brand-300 flex items-center justify-center font-bold text-white">#</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-baseline">
+                <p class="font-bold text-sm truncate dark:text-white">Prime Network Main</p>
+                <span class="text-[10px] text-slate-400">13:10</span>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-brand-100 truncate">Welcome to the inner circle.</p>
+            </div>
+          </div>
+
+          <div onclick="selectChatChannel('Security & Systems')" class="p-3.5 flex items-center gap-3 cursor-pointer hover:bg-slate-100 dark:hover:bg-brand-300/10">
+            <div class="w-10 h-10 rounded-full bg-brand-400 flex items-center justify-center font-bold text-white">🔒</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-baseline">
+                <p class="font-bold text-sm truncate dark:text-white">Security & Systems</p>
+                <span class="text-[10px] text-slate-400">12:04</span>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-brand-100 truncate">Admin OTP verification active.</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right Area: Active Chat Window -->
+      <div class="flex-1 flex flex-col bg-[#efeae2]/40 dark:bg-[#081524]">
+        
+        <!-- Chat Header -->
+        <div class="px-4 py-3 bg-white dark:bg-brand-400 border-b border-slate-200 dark:border-brand-300/30 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-brand-300 flex items-center justify-center font-bold text-white">#</div>
+            <div>
+              <h4 id="activeChatTitle" class="font-bold text-sm dark:text-white leading-tight">Prime Network Main</h4>
+              <p class="text-[11px] text-emerald-500 font-semibold flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Online Realtime
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4 text-brand-300 dark:text-brand-100">
+            <i class="fa-solid fa-phone cursor-pointer hover:text-brand-orange"></i>
+            <i class="fa-solid fa-ellipsis-vertical cursor-pointer hover:text-brand-orange"></i>
+          </div>
+        </div>
+
+        <!-- Chat Messages Thread -->
+        <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3">
+          <!-- Sample Inbound WhatsApp Message -->
+          <div class="flex items-end gap-2">
+            <div class="bg-white dark:bg-brand-400 border border-slate-200 dark:border-brand-300/30 rounded-2xl rounded-bl-xs p-3 max-w-sm text-sm shadow-sm">
+              <span class="font-bold text-[11px] text-brand-orange block mb-0.5">Admin (prinzloner90b@gmail.com)</span>
+              <p class="text-slate-700 dark:text-slate-100">Welcome to Loner Prime. Respect network privacy rules.</p>
+              <span class="text-[10px] text-slate-400 block text-right mt-1">12:30 PM ✓✓</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <form onsubmit="sendMessage(event)" class="p-3 bg-white dark:bg-brand-400 border-t border-slate-200 dark:border-brand-300/30 flex items-center gap-2">
+          <button type="button" class="text-slate-400 hover:text-brand-orange p-2"><i class="fa-regular fa-face-smile"></i></button>
+          <input type="text" id="chatMessageInput" placeholder="Type a WhatsApp message..." class="flex-1 bg-slate-100 dark:bg-brand-500 text-sm px-4 py-2.5 rounded-xl outline-none focus:ring-2 ring-brand-orange dark:text-white" required />
+          <button type="submit" class="bg-brand-orange hover:bg-brand-orange-hover text-white w-10 h-10 rounded-xl flex items-center justify-center shadow-md transition">
+            <i class="fa-solid fa-paper-plane text-sm"></i>
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================================================================= -->
+  <!-- 3. MODAL DIALOGS                                                  -->
+  <!-- ================================================================= -->
+
+  <!-- A. Admin OTP Authentication Modal (Exact Requirements) -->
+  <div id="authModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-brand-400 rounded-3xl max-w-md w-full p-6 sm:p-8 border border-brand-200/40 dark:border-brand-300/40 shadow-2xl relative animate-fade-in">
+      <button onclick="closeModal('authModal')" class="absolute top-4 right-4 text-slate-400 hover:text-brand-orange">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <!-- Lock Header -->
+      <div class="text-center mb-6">
+        <div class="w-16 h-16 rounded-2xl bg-brand-orange/10 border border-brand-orange text-brand-orange flex items-center justify-center text-2xl mx-auto mb-3 shadow-lg shadow-brand-orange/20">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h3 class="text-xl font-orbitron font-bold text-brand-500 dark:text-white">Admin Security Access</h3>
+      </div>
+
+      <!-- Specific Required Security Prompt -->
+      <div class="bg-brand-100/30 dark:bg-brand-500/80 border border-brand-300/40 rounded-2xl p-4 mb-6">
+        <p class="text-xs sm:text-sm text-slate-700 dark:text-brand-100 leading-relaxed font-medium">
+          <strong class="text-brand-orange block mb-1 uppercase tracking-wide"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Access Restricted</strong>
+          An OTP has been sent to the administrator at <span class="underline font-bold text-brand-400 dark:text-brand-100">prinzloner90b@gmail.com</span>. Please enter the OTP provided by the admin to proceed.
+        </p>
+      </div>
+
+      <!-- OTP Mock Input Form -->
+      <form onsubmit="verifyAdminOtp(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 dark:text-brand-100 mb-1 tracking-wider uppercase">Enter 6-Digit Admin OTP</label>
+          <div class="relative">
+            <input type="text" id="otpInputField" maxlength="6" placeholder="• • • • • •" class="w-full text-center tracking-[0.6em] font-orbitron text-xl font-bold bg-slate-100 dark:bg-brand-500 border border-brand-300 rounded-xl py-3 focus:outline-none focus:border-brand-orange dark:text-white transition" required />
+          </div>
+          <span class="text-[11px] text-slate-400 mt-1.5 block text-center">Simulated Admin Code: <span class="font-mono text-brand-orange font-bold">789012</span></span>
+        </div>
+
+        <button type="submit" class="w-full bg-brand-orange hover:bg-brand-orange-hover text-white font-bold py-3.5 rounded-xl shadow-lg shadow-brand-orange/30 transition tracking-wider text-sm flex items-center justify-center gap-2">
+          <i class="fa-solid fa-key"></i> Unlock Platform Access
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- B. Platform Invite Modal -->
+  <div id="inviteModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-brand-400 rounded-3xl max-w-md w-full p-6 border border-brand-200 dark:border-brand-300/40 shadow-2xl relative">
+      <button onclick="closeModal('inviteModal')" class="absolute top-4 right-4 text-slate-400 hover:text-brand-orange">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-brand-orange/10 text-brand-orange flex items-center justify-center text-lg">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <h3 class="text-lg font-orbitron font-bold dark:text-white">Invite to Loner Prime</h3>
+      </div>
+
+      <p class="text-xs text-slate-500 dark:text-brand-100 mb-4">
+        Share this direct network invitation link with trusted users to grant guest node clearance.
+      </p>
+
+      <div class="flex items-center gap-2 bg-slate-100 dark:bg-brand-500 p-2 rounded-xl border border-brand-300/30 mb-4">
+        <input type="text" id="inviteLinkText" value="https://lonerprime.network/join?ref=admin_lp" readonly class="w-full bg-transparent text-xs outline-none dark:text-brand-100 font-mono px-2" />
+        <button onclick="copyInviteLink()" class="bg-brand-300 hover:bg-brand-orange text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">
+          Copy
+        </button>
+      </div>
+
+      <div class="text-center">
+        <span id="copyToast" class="text-xs text-emerald-500 font-semibold opacity-0 transition-opacity">Link copied to clipboard!</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- 4. MODULAR JAVASCRIPT LOGIC                                       -->
+  <!-- ================================================================= -->
+  <script>
+    /* ==============================================================
+     * MODULE 1: THEME & NAVIGATION CONTROLLER
+     * ============================================================== */
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('theme-icon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+      } else {
+        html.classList.add('dark');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      }
+    }
+
+    function switchTab(tabName) {
+      const feedSection = document.getElementById('section-feed');
+      const chatSection = document.getElementById('section-chat');
+      const feedBtn = document.getElementById('tab-feed-btn');
+      const chatBtn = document.getElementById('tab-chat-btn');
+
+      if (tabName === 'feed') {
+        feedSection.classList.remove('hidden');
+        chatSection.classList.add('hidden');
+
+        feedBtn.className = "px-4 py-2 rounded-lg font-medium text-sm transition-all bg-brand-orange text-white shadow-md";
+        chatBtn.className = "px-4 py-2 rounded-lg font-medium text-sm transition-all text-brand-400 dark:text-brand-100 hover:text-brand-orange dark:hover:text-white";
+      } else {
+        feedSection.classList.add('hidden');
+        chatSection.classList.remove('hidden');
+
+        chatBtn.className = "px-4 py-2 rounded-lg font-medium text-sm transition-all bg-brand-orange text-white shadow-md";
+        feedBtn.className = "px-4 py-2 rounded-lg font-medium text-sm transition-all text-brand-400 dark:text-brand-100 hover:text-brand-orange dark:hover:text-white";
+      }
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    /* ==============================================================
+     * MODULE 2: SOCIAL FEED & COMMENT ENGINE
+     * ============================================================== */
+    let currentUploadedMedia = null;
+    let postsData = [
+      {
+        id: 1,
+        author: "Prinz Loner",
+        time: "20 minutes ago",
+        content: "Loner Prime interface deployed with updated security protocols. Please complete your node verification.",
+        mediaUrl: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1000&q=80",
+        mediaType: "image",
+        likes: 12,
+        comments: [
+          { author: "Node 04", text: "Security prompt configured cleanly." }
+        ]
+      }
+    ];
+
+    function handleMediaSelected(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const previewContainer = document.getElementById('mediaPreviewContainer');
+      const imgPreview = document.getElementById('imagePreview');
+      const vidPreview = document.getElementById('videoPreview');
+
+      const url = URL.createObjectURL(file);
+      currentUploadedMedia = { url, type: file.type.startsWith('video') ? 'video' : 'image' };
+
+      previewContainer.classList.remove('hidden');
+      if (currentUploadedMedia.type === 'image') {
+        imgPreview.src = url;
+        imgPreview.classList.remove('hidden');
+        vidPreview.classList.add('hidden');
+      } else {
+        vidPreview.src = url;
+        vidPreview.classList.remove('hidden');
+        imgPreview.classList.add('hidden');
+      }
+    }
+
+    function clearMediaPreview() {
+      currentUploadedMedia = null;
+      document.getElementById('mediaFileInput').value = "";
+      document.getElementById('mediaPreviewContainer').classList.add('hidden');
+    }
+
+    function publishPost() {
+      const input = document.getElementById('postInputText');
+      const text = input.value.trim();
+      if (!text && !currentUploadedMedia) return;
+
+      const newPost = {
+        id: Date.now(),
+        author: "Current User",
+        time: "Just now",
+        content: text,
+        mediaUrl: currentUploadedMedia ? currentUploadedMedia.url : null,
+        mediaType: currentUploadedMedia ? currentUploadedMedia.type : null,
+        likes: 0,
+        comments: []
+      };
+
+      postsData.unshift(newPost);
+      input.value = "";
+      clearMediaPreview();
+      renderFeed();
+    }
+
+    function addComment(postId, inputElem) {
+      const text = inputElem.value.trim();
+      if (!text) return;
+
+      const post = postsData.find(p => p.id === postId);
+      if (post) {
+        post.comments.push({ author: "You", text });
+        renderFeed();
+      }
+    }
+
+    function renderFeed() {
+      const container = document.getElementById('feedStream');
+      container.innerHTML = postsData.map(post => `
+        <article class="bg-white dark:bg-brand-400 rounded-2xl p-5 shadow-xl border border-brand-200/40 dark:border-brand-300/30 space-y-4">
+          <!-- Post Header -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-brand-300 flex items-center justify-center font-bold text-white">
+                ${post.author.charAt(0)}
+              </div>
+              <div>
+                <h4 class="font-bold text-sm dark:text-white">${post.author}</h4>
+                <span class="text-[11px] text-slate-400">${post.time}</span>
+              </div>
+            </div>
+            <button class="text-slate-400 hover:text-brand-orange"><i class="fa-solid fa-ellipsis"></i></button>
+          </div>
+
+          <!-- Post Content -->
+          ${post.content ? `<p class="text-sm text-slate-700 dark:text-brand-100">${post.content}</p>` : ''}
+
+          <!-- Media Display -->
+          ${post.mediaUrl ? `
+            <div class="rounded-xl overflow-hidden bg-black/5 dark:bg-black/40 border border-brand-300/20">
+              ${post.mediaType === 'image' 
+                ? `<img src="${post.mediaUrl}" class="w-full max-h-96 object-cover" />` 
+                : `<video src="${post.mediaUrl}" controls class="w-full max-h-96"></video>`}
+            </div>
+          ` : ''}
+
+          <!-- Action Counts -->
+          <div class="flex items-center gap-6 pt-2 border-t border-slate-100 dark:border-brand-300/20 text-xs font-semibold text-slate-500 dark:text-brand-200">
+            <button class="hover:text-brand-orange flex items-center gap-1.5"><i class="fa-regular fa-heart text-brand-orange"></i> ${post.likes} Likes</button>
+            <span class="flex items-center gap-1.5"><i class="fa-regular fa-comment"></i> ${post.comments.length} Comments</span>
+          </div>
+
+          <!-- Comments Feed -->
+          <div class="space-y-2 pt-2">
+            ${post.comments.map(c => `
+              <div class="bg-slate-50 dark:bg-brand-500/60 p-2.5 rounded-xl text-xs border border-brand-300/20">
+                <span class="font-bold text-brand-orange mr-1">${c.author}:</span>
+                <span class="text-slate-700 dark:text-brand-100">${c.text}</span>
+              </div>
+            `).join('')}
+
+            <!-- Comment Input -->
+            <div class="flex gap-2 mt-2">
+              <input type="text" placeholder="Write a comment..." onkeydown="if(event.key==='Enter') addComment(${post.id}, this)" class="flex-1 bg-slate-100 dark:bg-brand-500 text-xs px-3 py-2 rounded-xl outline-none focus:ring-1 ring-brand-orange dark:text-white" />
+              <button onclick="addComment(${post.id}, this.previousElementSibling)" class="bg-brand-300 hover:bg-brand-orange text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition">
+                Send
+              </button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    /* ==============================================================
+     * MODULE 3: MESSAGING ENGINE (WHATSAPP-STYLE)
+     * ============================================================== */
+    function sendMessage(event) {
+      event.preventDefault();
+      const input = document.getElementById('chatMessageInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const chatContainer = document.getElementById('chatMessages');
+      const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      // Outgoing message bubble (WhatsApp styled)
+      const messageHTML = `
+        <div class="flex items-end justify-end gap-2">
+          <div class="bg-brand-200/20 dark:bg-brand-300 border border-brand-300/40 rounded-2xl rounded-br-xs p-3 max-w-sm text-sm shadow-sm">
+            <span class="font-bold text-[11px] text-brand-orange block mb-0.5">You</span>
+            <p class="text-slate-800 dark:text-white">${text}</p>
+            <span class="text-[10px] text-brand-500 dark:text-brand-100 block text-right mt-1">${time} ✓✓</span>
+          </div>
+        </div>
+      `;
+
+      chatContainer.insertAdjacentHTML('beforeend', messageHTML);
+      input.value = "";
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function selectChatChannel(channelName) {
+      document.getElementById('activeChatTitle').innerText = channelName;
+    }
+
+    /* ==============================================================
+     * MODULE 4: INVITE & AUTHENTICATION MODULE
+     * ============================================================== */
+    function copyInviteLink() {
+      const link = document.getElementById('inviteLinkText');
+      navigator.clipboard.writeText(link.value);
+      const toast = document.getElementById('copyToast');
+      toast.classList.remove('opacity-0');
+      setTimeout(() => toast.classList.add('opacity-0'), 2000);
+    }
+
+    function verifyAdminOtp(event) {
+      event.preventDefault();
+      const otp = document.getElementById('otpInputField').value.trim();
+      const authBtn = document.getElementById('auth-status-btn');
+
+      if (otp === "789012") {
+        alert("Authorization Granted. Admin node clearance unlocked.");
+        authBtn.className = "bg-emerald-600 text-white text-sm font-semibold px-4 py-2 rounded-xl transition flex items-center gap-2";
+        authBtn.innerHTML = '<i class="fa-solid fa-lock-open"></i><span>Admin Verified</span>';
+        closeModal('authModal');
+      } else {
+        alert("Invalid OTP code. Access restricted to administrator authorization.");
+      }
+    }
+
+    // Initial render
+    window.addEventListener('DOMContentLoaded', () => {
+      renderFeed();
+    });
+  </script>
 </body>
 </html>
