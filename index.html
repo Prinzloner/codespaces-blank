@@ -1,129 +1,644 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loner Prime - Secure VIP Community</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>LONER PRIME | Cybernetic Community & VIP Neural Gate</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & PALETTE SYSTEM
+           Strictly mapped to brand colors:
+           Main Background: #011C40 | Card Containers: #023859
+           Secondary Elements & Borders: #26658C & #54ACBF
+           Light Text / Accents: #A7EBF2 | Vibrant Neon Orange: #FF6600
+           ========================================================================== */
         :root {
-            --bg-dark: #011C40;
-            --bg-card: #023859;
-            --accent-orange: #FF6600;
-            --text-main: #E0F2F1;
-            --text-muted: #B2EBF2;
+            --bg-main: #011C40;
+            --bg-secondary: #011633;
+            --card-bg: #023859;
+            --card-hover: #03456c;
+            --border-primary: #26658C;
+            --border-highlight: #54ACBF;
+            --text-accent: #A7EBF2;
+            --text-main: #E2F8FA;
+            --text-muted: #78B7C5;
+            --neon-orange: #FF6600;
+            --neon-orange-glow: rgba(255, 102, 0, 0.4);
+            --cyan-glow: rgba(84, 172, 191, 0.35);
+            --input-bg: #011C40;
+            --shadow-elevation: 0 10px 30px rgba(0, 5, 15, 0.6);
+            --glass-bg: rgba(2, 56, 89, 0.85);
+            --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Light Mode Harmonious Inversion */
+        [data-theme="light"] {
+            --bg-main: #EAF4F8;
+            --bg-secondary: #D9EBF2;
+            --card-bg: #FFFFFF;
+            --card-hover: #F4F9FB;
+            --border-primary: #54ACBF;
+            --border-highlight: #26658C;
+            --text-accent: #023859;
+            --text-main: #011C40;
+            --text-muted: #26658C;
+            --neon-orange: #FF6600;
+            --neon-orange-glow: rgba(255, 102, 0, 0.25);
+            --cyan-glow: rgba(38, 101, 140, 0.15);
+            --input-bg: #F0F7FA;
+            --shadow-elevation: 0 10px 25px rgba(2, 56, 89, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
+            background-color: var(--bg-main);
             color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .metallic-font {
+        /* Custom Cybernetic Scrollbar */
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-main);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-primary);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border-highlight);
+        }
+
+        /* ==========================================================================
+           2. HEADER & BRAND LOGO TYPOGRAPHY
+           ========================================================================== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1.5px solid var(--border-primary);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* Holographic Laptop/Brain Logo */
+        .logo-box {
+            position: relative;
+            width: 46px;
+            height: 46px;
+            background: radial-gradient(circle, #023859 0%, #011C40 100%);
+            border: 1.5px solid var(--border-highlight);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px var(--cyan-glow);
+            overflow: hidden;
+        }
+
+        .logo-box svg {
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 0 6px #54ACBF);
+        }
+
+        /* Metallic Gradient Brand Typography */
+        .brand-title {
             font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            text-transform: uppercase;
-            background: linear-gradient(180deg, #ffffff 0%, #b0bec5 50%, #78909c 100%);
+            font-size: 1.55rem;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--text-accent) 45%, #54ACBF 80%, #26658C 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.7));
+            text-transform: uppercase;
+            user-select: none;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .brand-title .stylized-l {
+            font-size: 1.85rem;
+            font-weight: 900;
+            -webkit-text-stroke: 1px var(--neon-orange);
+            filter: drop-shadow(0 0 4px var(--neon-orange-glow));
+        }
+
+        .brand-title .stylized-o {
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: var(--neon-orange);
+            -webkit-text-fill-color: var(--neon-orange);
+            text-shadow: 0 0 8px var(--neon-orange-glow);
+        }
+
+        .brand-title span.sub {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            margin-left: 6px;
+            letter-spacing: 3px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Perspective Role Switcher (Visitor vs Admin Demo) */
+        .role-badge {
+            background: var(--bg-main);
+            border: 1px solid var(--border-primary);
+            color: var(--text-accent);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .role-badge:hover {
+            border-color: var(--border-highlight);
+            color: #fff;
+        }
+
+        .role-badge.admin-active {
+            border-color: var(--neon-orange);
+            color: var(--neon-orange);
+            box-shadow: 0 0 10px var(--neon-orange-glow);
+        }
+
+        /* Buttons & Controls */
+        .btn-theme {
+            background: var(--card-bg);
+            border: 1px solid var(--border-primary);
+            color: var(--text-accent);
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-theme:hover {
+            border-color: var(--neon-orange);
+            color: var(--neon-orange);
+            transform: scale(1.05);
+        }
+
+        .btn-cta {
+            background: var(--neon-orange);
+            color: #FFFFFF;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
             letter-spacing: 1px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px var(--neon-orange-glow);
+            transition: var(--transition-smooth);
         }
 
-        .bg-card { background-color: var(--bg-card); }
-        .text-muted { color: var(--text-muted); }
-        .bg-accent { background-color: var(--accent-orange); }
-        .text-accent { color: var(--accent-orange); }
-        
-        .glow-effect {
-            box-shadow: 0 0 15px rgba(255, 102, 0, 0.4);
-        }
-    </style>
-</head>
-<body class="min-h-screen p-4 md:p-6 flex flex-col justify-between">
-
-    <div>
-        <nav class="flex items-center justify-between p-4 md:p-5 bg-card rounded-2xl shadow-xl border border-white/10 mb-6">
-            <div class="flex items-center gap-3">
-                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=120&q=80" alt="Brain and Laptop Logo" class="w-12 h-12 rounded-xl object-cover border border-cyan-500/40 glow-effect">
-                <h1 class="text-2xl md:text-3xl tracking-tight">
-                    <span class="metallic-font">LONER PRIME</span>
-                </h1>
-            </div>
-            
-            <button onclick="triggerAdminLogin()" class="bg-accent text-slate-950 font-bold px-4 py-2.5 rounded-xl text-sm transition hover:opacity-90 shadow-lg">
-                Admin Portal
-            </button>
-        </nav>
-
-        <main class="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-            
-            <section class="lg:col-span-2 space-y-6">
-                <div class="bg-card p-6 md:p-8 rounded-2xl shadow-xl border border-white/10">
-                    <h2 class="text-2xl font-bold mb-3 text-cyan-300">Welcome to Loner Prime Network</h2>
-                    <p class="text-muted text-sm md:text-base leading-relaxed mb-6">
-                        A next-generation digital ecosystem engineered for secure communication, high-level web infrastructure, and private networking. Access to our core community spaces requires verified clearance.
-                    </p>
-                    <div class="rounded-xl overflow-hidden border border-white/10 shadow-inner">
-                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80" alt="Cybersecurity Interface" class="w-full h-64 object-cover">
-                    </div>
-                </div>
-            </section>
-
-            <aside class="space-y-6">
-                <div id="community-locked" class="bg-card p-6 rounded-2xl shadow-xl border border-white/10 text-center space-y-5">
-                    <div class="w-16 h-16 bg-[#011C40] rounded-full flex items-center justify-center mx-auto border border-accent/50">
-                        <svg class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-cyan-200">VIP Community Group</h3>
-                    <p class="text-xs text-muted">Restricted Area. Entry is strictly by admin invitation approval only.</p>
-                    
-                    <button onclick="requestInvitation()" class="w-full bg-accent text-slate-950 font-bold py-3 rounded-xl transition hover:opacity-90 shadow-md">
-                        Request Invitation
-                    </button>
-                    <p id="request-status" class="text-xs text-emerald-400 font-medium"></p>
-                </div>
-
-                <div id="community-unlocked" class="bg-card p-6 rounded-2xl shadow-xl border border-emerald-500/30 space-y-4 hidden">
-                    <div class="flex items-center justify-between border-b border-white/10 pb-3">
-                        <h3 class="text-lg font-bold text-emerald-400">VIP Community Channel</h3>
-                        <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-bold">UNLOCKED</span>
-                    </div>
-                    <p class="text-xs text-muted">You have full administrator access to the community group chat.</p>
-                    <div class="bg-[#011C40] p-4 rounded-xl border border-white/5 space-y-2">
-                        <p class="text-xs text-accent font-bold">Admin Notification</p>
-                        <p class="text-xs text-white">Pending requests will alert prinzloner90b@gmail.com for approval.</p>
-                    </div>
-                </div>
-            </aside>
-        </main>
-    </div>
-
-    <footer class="text-center py-6 text-xs text-muted mt-12 border-t border-white/5">
-        &copy; 2026 Loner Prime. All rights reserved. Secured Architecture.
-    </footer>
-
-    <script>
-        function requestInvitation() {
-            const statusText = document.getElementById('request-status');
-            statusText.innerText = "Invitation request sent! Notifying admin at prinzloner90b@gmail.com...";
-            setTimeout(() => {
-                statusText.innerText = "Pending approval from Prinz Loner.";
-            }, 1500);
+        .btn-cta:hover {
+            background: #e65c00;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--neon-orange-glow);
         }
 
-        function triggerAdminLogin() {
-            let code = prompt("Enter Admin OTP / Security Key sent to prinzloner90b@gmail.com:");
-            if (code !== null && code !== "") {
-                document.getElementById('community-locked').style.display = 'none';
-                document.getElementById('community-unlocked').style.display = 'block';
-                alert("Admin access granted. Community unlocked.");
+        /* ==========================================================================
+           3. MAIN LAYOUT ARCHITECTURE
+           ========================================================================== */
+        .app-container {
+            max-width: 1350px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 280px 1fr 340px;
+            gap: 1.5rem;
+            flex: 1;
+        }
+
+        @media (max-width: 1100px) {
+            .app-container {
+                grid-template-columns: 240px 1fr;
+            }
+            .sidebar-right {
+                grid-column: span 2;
             }
         }
-    </script>
-</body>
-</html>
+
+        @media (max-width: 768px) {
+            .app-container {
+                grid-template-columns: 1fr;
+                padding: 0.8rem;
+            }
+            .brand-title { font-size: 1.25rem; }
+        }
+
+        /* Sidebar Navigation & Panels */
+        .sidebar-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            padding: 1.2rem;
+            box-shadow: var(--shadow-elevation);
+            position: sticky;
+            top: 5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: var(--text-accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 6px;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .nav-item i {
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(38, 101, 140, 0.35);
+            border-color: var(--border-highlight);
+            color: #FFF;
+        }
+
+        .nav-item.vip-link {
+            border-color: rgba(255, 102, 0, 0.4);
+            color: var(--neon-orange);
+            background: rgba(255, 102, 0, 0.08);
+        }
+        .nav-item.vip-link:hover {
+            background: rgba(255, 102, 0, 0.2);
+            border-color: var(--neon-orange);
+        }
+
+        /* ==========================================================================
+           4. INTERACTIVE COMMUNITY FEED (WHATSAPP-STYLE)
+           ========================================================================== */
+        .feed-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        /* Post Creation Box */
+        .create-post-card {
+            background: var(--card-bg);
+            border: 1.5px solid var(--border-primary);
+            border-radius: 14px;
+            padding: 1.2rem;
+            box-shadow: var(--shadow-elevation);
+        }
+
+        .post-input-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--border-highlight);
+            background: var(--bg-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-accent);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .user-avatar.admin-avatar {
+            border-color: var(--neon-orange);
+            color: var(--neon-orange);
+            box-shadow: 0 0 10px var(--neon-orange-glow);
+        }
+
+        .post-textarea {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 10px;
+            padding: 12px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            resize: none;
+            outline: none;
+            transition: var(--transition-smooth);
+            min-height: 75px;
+        }
+
+        .post-textarea:focus {
+            border-color: var(--border-highlight);
+            box-shadow: 0 0 10px var(--cyan-glow);
+        }
+
+        .media-preview-box {
+            display: none;
+            margin: 10px 0;
+            position: relative;
+            max-height: 220px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-highlight);
+        }
+
+        .media-preview-box img, .media-preview-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .remove-media-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+        }
+
+        .post-actions-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(84, 172, 191, 0.2);
+        }
+
+        .media-attach-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-accent);
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: var(--transition-smooth);
+        }
+
+        .media-attach-btn:hover {
+            background: rgba(84, 172, 191, 0.15);
+            color: #fff;
+        }
+
+        /* Post Items */
+        .post-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 14px;
+            padding: 1.2rem;
+            box-shadow: var(--shadow-elevation);
+            transition: var(--transition-smooth);
+        }
+
+        .post-card:hover {
+            border-color: var(--border-highlight);
+        }
+
+        .post-card.vip-post {
+            border: 1.5px solid var(--neon-orange);
+            background: linear-gradient(180deg, var(--card-bg) 0%, rgba(255,102,0,0.06) 100%);
+            box-shadow: 0 6px 20px var(--neon-orange-glow);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .post-author-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .author-name {
+            font-weight: 700;
+            color: var(--text-accent);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-vip {
+            background: var(--neon-orange);
+            color: #fff;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .post-timestamp {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .post-content {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            white-space: pre-line;
+        }
+
+        .post-media-container {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-primary);
+            margin-bottom: 12px;
+            background: #000;
+        }
+
+        .post-media-container img, .post-media-container video {
+            width: 100%;
+            max-height: 380px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* WhatsApp-like Interaction Bar */
+        .post-engagement {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 8px 0;
+            border-top: 1px solid rgba(84, 172, 191, 0.2);
+            border-bottom: 1px solid rgba(84, 172, 191, 0.2);
+            margin-bottom: 10px;
+        }
+
+        .engagement-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition-smooth);
+        }
+
+        .engagement-btn:hover {
+            color: var(--text-accent);
+        }
+
+        .engagement-btn.liked {
+            color: var(--neon-orange);
+        }
+
+        /* Comment Threads */
+        .comments-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .comment-item {
+            background: var(--input-bg);
+            border: 1px solid rgba(84, 172, 191, 0.2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            color: var(--text-accent);
+            margin-bottom: 3px;
+        }
+
+        .reply-input-wrapper {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .reply-input {
+            flex: 1;
+            background: var(--input-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: 6px;
+            padding: 6px 10px;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .reply-input:focus {
+            border-color: var(--border-highlight);
+        }
+
+        .btn-reply-send {
+            background: var(--border-primary);
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .btn-reply-send:hover {
+            background: var(--neon-orange);
+        }
+
+        /* ==========================================================================
+           5. VIP COMMUNITY GATE & ADMIN CONTROLS
+           ========================================================================== */
+        .vip-locked-banner {
+            background: radial-gradient(circle, rgba(2, 56, 89, 0.95) 0%, rgba(1, 28, 64, 0.98) 100%);
+            border: 2px dashed var(--neon-orange);
+            border-radius: 14px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 0 25px var(--neon-orange-glow);
+        }
+
+        .vip-lock-icon {
+            font-size: 3rem;
+            color: var(--neon-orange);
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px var(--neon-orange-glow));
+            animation: pulse-lock 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-lock {
