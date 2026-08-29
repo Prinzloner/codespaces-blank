@@ -332,19 +332,29 @@
 
     function requestOtp() {
       const email = document.getElementById('targetEmail').value;
-      const status = document.getElementById('systemStatus');
-      
-      if (!email || !email.includes('@')) {
-        status.textContent = 'Please provide a valid email address.';
-        return;
-      }
+    const status = document.getElementById('systemStatus');
 
-      status.textContent = 'Dispatching approval alert to prinzloner90b@gmail.com...';
-      setTimeout(() => {
-        document.getElementById('stepRequest').style.display = 'none';
-        document.getElementById('stepVerify').style.display = 'block';
-        status.textContent = 'OTP sent. Enter the code provided by admin to enter.';
-      }, 1500);
+    if (!email || !email.includes('@')) {
+        status.textContent = 'Please enter a valid email address.';
+        return;
+    }
+
+    const generatedOtp = Math.floor(1000 + Math.random() * 9000);
+    sessionStorage.setItem('savedOtp', generatedOtp);
+
+    status.textContent = 'Dispatching OTP...';
+
+    emailjs.send("service_dfmejlk", "template_3rzf4dl", {
+        to_email: email,
+        passcode: generatedOtp
+    }, "eSxmffX23JbUzCdXo")
+    .then(function() {
+        status.textContent = 'OTP sent successfully! Check your inbox.';
+    }, function(error) {
+        status.textContent = 'Failed to send OTP. Please try again.';
+        console.log(error);
+    });
+
     }
 
     function verifyOtp() {
