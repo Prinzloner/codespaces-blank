@@ -1,476 +1,354 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SMC Digital | Web Developer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMC Digital | Web Developer</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #07111f;
-      color: white;
-      line-height: 1.6;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            background: #07111f;
+            color: white;
+            line-height: 1.6;
+        }
 
-    header {
-      background: #091827;
-      padding: 20px 8%;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+        header {
+            background: #0b1b30;
+            padding: 20px 8%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #183453;
+        }
 
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-    }
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #39a9ff;
+        }
 
-    .logo span,
-    .blue {
-      color: #1597ff;
-    }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
 
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 25px;
-    }
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
 
-    nav ul a {
-      color: white;
-      text-decoration: none;
-    }
+        nav a:hover {
+            color: #39a9ff;
+        }
 
-    nav ul a:hover {
-      color: #1597ff;
-    }
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 70px 8%;
+        }
 
-    .btn {
-      display: inline-block;
-      background: #1597ff;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 25px;
-      text-decoration: none;
-      margin: 5px;
-    }
+        .hero-content {
+            max-width: 700px;
+        }
 
-    .outline {
-      background: transparent;
-      border: 1px solid #1597ff;
-    }
+        .hero h1 {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
 
-    .hero {
-      min-height: 650px;
-      padding: 100px 8%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 50px;
-    }
+        .hero h1 span {
+            color: #39a9ff;
+        }
 
-    .hero-text {
-      max-width: 600px;
-    }
+        .hero p {
+            color: #b7c6d8;
+            font-size: 19px;
+            margin-bottom: 30px;
+        }
 
-    .hero-text p:first-child {
-      color: #1597ff;
-      font-size: 20px;
-    }
+        .btn {
+            display: inline-block;
+            background: #39a9ff;
+            color: #06101d;
+            padding: 13px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-    .hero h1 {
-      font-size: 65px;
-      margin: 10px 0;
-    }
+        section {
+            padding: 80px 8%;
+        }
 
-    .hero h2 {
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
+        .section-title {
+            text-align: center;
+            font-size: 35px;
+            margin-bottom: 45px;
+        }
 
-    .description {
-      color: #b7c4d4;
-      margin-bottom: 25px;
-    }
+        .about {
+            background: #0b1b30;
+        }
 
-    .hero-image {
-      width: 330px;
-      height: 330px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #1597ff, #063b6d);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 0 70px rgba(21, 151, 255, .35);
-    }
+        .about-content {
+            max-width: 800px;
+            margin: auto;
+            text-align: center;
+            color: #b7c6d8;
+        }
 
-    .hero-image div {
-      font-size: 90px;
-      font-weight: bold;
-    }
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 850px;
+            margin: auto;
+        }
 
-    section {
-      padding: 90px 8%;
-    }
+        .skill {
+            background: #0d2138;
+            padding: 25px;
+            border-radius: 12px;
+        }
 
-    .section-title {
-      text-align: center;
-      font-size: 40px;
-      margin-bottom: 45px;
-    }
+        .skill h3 {
+            margin-bottom: 12px;
+        }
 
-    .about {
-      background: #091827;
-    }
+        .bar {
+            height: 9px;
+            background: #172f4c;
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-    .about-content {
-      max-width: 850px;
-      margin: auto;
-      text-align: center;
-    }
+        .progress {
+            height: 100%;
+            background: #39a9ff;
+        }
 
-    .about-content p {
-      color: #b7c4d4;
-      margin-bottom: 20px;
-    }
+        .html {
+            width: 90%;
+        }
 
-    .skills-grid {
-      max-width: 850px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 25px;
-    }
+        .css {
+            width: 80%;
+        }
 
-    .skill {
-      background: #0d1d30;
-      padding: 25px;
-      border-radius: 12px;
-    }
+        .canva {
+            width: 75%;
+        }
 
-    .skill-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
+        .responsive {
+            width: 85%;
+        }
 
-    .bar {
-      height: 8px;
-      background: #20344b;
-      border-radius: 10px;
-    }
+        .projects {
+            background: #0b1b30;
+        }
 
-    .bar div {
-      height: 100%;
-      background: #1597ff;
-      border-radius: 10px;
-    }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
 
-    .html {
-      width: 90%;
-    }
+        .project {
+            background: #10263f;
+            padding: 30px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
 
-    .css {
-      width: 85%;
-    }
+        .project:hover {
+            transform: translateY(-7px);
+        }
 
-    .responsive {
-      width: 90%;
-    }
+        .project h3 {
+            color: #39a9ff;
+            margin-bottom: 10px;
+        }
 
-    .canva {
-      width: 75%;
-    }
+        .project p {
+            color: #b7c6d8;
+        }
 
-    .projects {
-      background: #091827;
-    }
+        .contact {
+            text-align: center;
+        }
 
-    .project-grid {
-      max-width: 1000px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
+        .contact p {
+            color: #b7c6d8;
+            margin-bottom: 25px;
+        }
 
-    .project {
-      background: #0d1d30;
-      padding: 30px;
-      border-radius: 15px;
-      transition: .3s;
-    }
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #050c15;
+            color: #8fa2b7;
+        }
 
-    .project:hover {
-      transform: translateY(-8px);
-    }
+        @media (max-width: 800px) {
+            .hero h1 {
+                font-size: 40px;
+            }
 
-    .project-icon {
-      font-size: 45px;
-      margin-bottom: 15px;
-    }
+            nav ul {
+                gap: 12px;
+                font-size: 14px;
+            }
 
-    .project p {
-      color: #b7c4d4;
-      margin: 10px 0 20px;
-    }
-
-    .contact {
-      text-align: center;
-    }
-
-    .contact p {
-      color: #b7c4d4;
-      margin-bottom: 25px;
-    }
-
-    footer {
-      background: #030a12;
-      text-align: center;
-      padding: 25px;
-      color: #8292a6;
-    }
-
-    @media (max-width: 768px) {
-
-      nav ul {
-        display: none;
-      }
-
-      .hero {
-        flex-direction: column;
-        text-align: center;
-        padding-top: 70px;
-      }
-
-      .hero h1 {
-        font-size: 45px;
-      }
-
-      .hero h2 {
-        font-size: 23px;
-      }
-
-      .hero-image {
-        width: 250px;
-        height: 250px;
-      }
-
-      .hero-image div {
-        font-size: 65px;
-      }
-
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .project-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+            .skills,
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <header>
+<header>
     <nav>
-      <div class="logo">SMC <span>Digital</span></div>
+        <div class="logo">SMC Digital</div>
 
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-
-      <a href="#contact" class="btn">Hire Me</a>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </nav>
-  </header>
+</header>
 
-  <main>
-
-    <section class="hero" id="home">
-
-      <div class="hero-text">
-        <p>Hello, I'm</p>
-
-        <h1>SMC <span class="blue">Digital</span></h1>
-
-        <h2>HTML & CSS Web Developer</h2>
-
-        <p class="description">
-          I create clean, responsive and modern websites
-          for individuals, businesses and personal brands.
-        </p>
-
-        <a href="#projects" class="btn">View Projects</a>
-        <a href="#contact" class="btn outline">Contact Me</a>
-      </div>
-
-      <div class="hero-image">
-        <div>&lt;/&gt;</div>
-      </div>
-
-    </section>
-
-    <section class="about" id="about">
-
-      <h2 class="section-title">
-        About <span class="blue">Me</span>
-      </h2>
-
-      <div class="about-content">
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1>Hi, I'm <span>SMC Digital</span></h1>
 
         <p>
-          I'm a beginner web developer passionate about
-          creating simple, clean and responsive websites.
+            Beginner web developer creating clean, responsive and
+            modern websites using HTML and CSS.
         </p>
 
+        <a href="#projects" class="btn">View My Projects</a>
+    </div>
+</section>
+
+<section class="about" id="about">
+    <h2 class="section-title">About Me</h2>
+
+    <div class="about-content">
         <p>
-          I focus on HTML and CSS while continuously
-          improving my web development skills.
+            I am a web development learner focused on creating
+            simple, responsive and user-friendly websites.
+            I enjoy turning ideas into clean web pages while
+            continuously improving my programming skills.
         </p>
+    </div>
+</section>
 
-        <p>
-          My goal is to turn ideas into professional
-          websites that work well on both desktop and mobile.
-        </p>
+<section id="skills">
+    <h2 class="section-title">My Skills</h2>
 
-      </div>
-
-    </section>
-
-    <section id="skills">
-
-      <h2 class="section-title">
-        My <span class="blue">Skills</span>
-      </h2>
-
-      <div class="skills-grid">
+    <div class="skills">
 
         <div class="skill">
-          <div class="skill-header">
-            <strong>HTML</strong>
-            <span>90%</span>
-          </div>
-          <div class="bar">
-            <div class="html"></div>
-          </div>
+            <h3>HTML</h3>
+            <div class="bar">
+                <div class="progress html"></div>
+            </div>
         </div>
 
         <div class="skill">
-          <div class="skill-header">
-            <strong>CSS</strong>
-            <span>85%</span>
-          </div>
-          <div class="bar">
-            <div class="css"></div>
-          </div>
+            <h3>CSS</h3>
+            <div class="bar">
+                <div class="progress css"></div>
+            </div>
         </div>
 
         <div class="skill">
-          <div class="skill-header">
-            <strong>Responsive Design</strong>
-            <span>90%</span>
-          </div>
-          <div class="bar">
-            <div class="responsive"></div>
-          </div>
+            <h3>Responsive Design</h3>
+            <div class="bar">
+                <div class="progress responsive"></div>
+            </div>
         </div>
 
         <div class="skill">
-          <div class="skill-header">
-            <strong>Canva</strong>
-            <span>75%</span>
-          </div>
-          <div class="bar">
-            <div class="canva"></div>
-          </div>
+            <h3>Canva Design</h3>
+            <div class="bar">
+                <div class="progress canva"></div>
+            </div>
         </div>
 
-      </div>
+    </div>
+</section>
 
-    </section>
+<section class="projects" id="projects">
+    <h2 class="section-title">My Projects</h2>
 
-    <section class="projects" id="projects">
-
-      <h2 class="section-title">
-        My <span class="blue">Projects</span>
-      </h2>
-
-      <div class="project-grid">
+    <div class="project-grid">
 
         <div class="project">
-          <div class="project-icon">💻</div>
-          <h3>Personal Portfolio</h3>
-          <p>
-            A modern responsive portfolio website
-            built with HTML and CSS.
-          </p>
-          <span class="blue">HTML • CSS</span>
+            <h3>Personal Portfolio</h3>
+            <p>
+                A responsive personal portfolio website
+                built with HTML and CSS.
+            </p>
         </div>
 
         <div class="project">
-          <div class="project-icon">🏢</div>
-          <h3>Business Website</h3>
-          <p>
-            A professional landing page designed
-            for a modern business.
-          </p>
-          <span class="blue">HTML • CSS</span>
+            <h3>Business Website</h3>
+            <p>
+                A modern landing page designed for
+                a technology business.
+            </p>
         </div>
 
         <div class="project">
-          <div class="project-icon">🍽️</div>
-          <h3>Restaurant Website</h3>
-          <p>
-            A clean restaurant website with menu,
-            contact and responsive sections.
-          </p>
-          <span class="blue">HTML • CSS</span>
+            <h3>Restaurant Website</h3>
+            <p>
+                A clean restaurant website featuring
+                a menu and contact section.
+            </p>
         </div>
 
-      </div>
+    </div>
+</section>
 
-    </section>
+<section class="contact" id="contact">
+    <h2 class="section-title">Let's Work Together</h2>
 
-    <section class="contact" id="contact">
+    <p>
+        Have a website idea? Let's turn it into a clean
+        and responsive webpage.
+    </p>
 
-      <h2 class="section-title">
-        Let's Work <span class="blue">Together</span>
-      </h2>
-
-      <p>
-        Have a website idea? Let's turn it into reality.
-      </p>
-
-      <a href="mailto:smcdigitalgh1@gmail.com" class="btn">
+    <a href="mailto:smcdigitalgh1@gmail.com" class="btn">
         Contact Me
-      </a>
+    </a>
+</section>
 
-    </section>
-
-  </main>
-
-  <footer>
-    <p>© 2026 SMC Digital • Code • Design • Create</p>
-  </footer>
+<footer>
+    <p>© 2026 SMC Digital. All Rights Reserved.</p>
+</footer>
 
 </body>
 </html>
