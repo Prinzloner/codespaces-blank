@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>NextGenTech | Technology Solutions</title>
+    <title>TastyBite Restaurant</title>
 
     <style>
         * {
@@ -16,13 +16,13 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: #f5f8f7;
-            color: #17231f;
+            background: #fffaf5;
+            color: #2b211b;
             line-height: 1.6;
         }
 
         header {
-            background: #063b2d;
+            background: #26150d;
             color: white;
             padding: 20px 8%;
             position: sticky;
@@ -37,13 +37,14 @@
         }
 
         .logo {
-            font-size: 25px;
+            font-size: 27px;
             font-weight: bold;
+            color: #ff9f43;
         }
 
         nav ul {
-            list-style: none;
             display: flex;
+            list-style: none;
             gap: 25px;
         }
 
@@ -52,9 +53,14 @@
             text-decoration: none;
         }
 
+        nav a:hover {
+            color: #ff9f43;
+        }
+
         .hero {
-            min-height: 80vh;
-            background: #e8f2ee;
+            min-height: 85vh;
+            background: #4a2718;
+            color: white;
             display: flex;
             align-items: center;
             padding: 70px 8%;
@@ -65,23 +71,26 @@
         }
 
         .hero h1 {
-            font-size: 55px;
+            font-size: 60px;
             line-height: 1.1;
             margin-bottom: 20px;
-            color: #063b2d;
+        }
+
+        .hero h1 span {
+            color: #ff9f43;
         }
 
         .hero p {
+            color: #eadbd1;
             font-size: 19px;
-            color: #53655e;
             margin-bottom: 30px;
         }
 
         .btn {
             display: inline-block;
-            background: #063b2d;
-            color: white;
-            padding: 14px 25px;
+            background: #ff9f43;
+            color: #26150d;
+            padding: 14px 27px;
             border-radius: 7px;
             text-decoration: none;
             font-weight: bold;
@@ -93,50 +102,57 @@
 
         .section-title {
             text-align: center;
-            font-size: 35px;
-            color: #063b2d;
+            font-size: 36px;
             margin-bottom: 45px;
+            color: #4a2718;
         }
 
-        .services {
+        .menu {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 25px;
         }
 
-        .service {
-            padding: 35px;
+        .food {
             background: white;
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
         }
 
-        .service h3 {
-            color: #063b2d;
-            margin-bottom: 12px;
+        .food h3 {
+            color: #4a2718;
+            margin-bottom: 8px;
         }
 
-        .service p {
-            color: #65736e;
+        .food p {
+            color: #76665d;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e87518;
         }
 
         .about {
-            background: #063b2d;
+            background: #4a2718;
             color: white;
+            text-align: center;
+        }
+
+        .about .section-title {
+            color: #ff9f43;
         }
 
         .about-content {
             max-width: 800px;
             margin: auto;
-            text-align: center;
-        }
-
-        .about .section-title {
-            color: white;
         }
 
         .about p {
-            color: #d4e4de;
+            color: #eadbd1;
         }
 
         .contact {
@@ -145,22 +161,23 @@
 
         .contact p {
             margin-bottom: 25px;
-            color: #65736e;
+            color: #76665d;
         }
 
         footer {
-            background: #03251d;
-            color: #b9cbc4;
+            background: #26150d;
+            color: #cdbdb2;
             text-align: center;
             padding: 25px;
         }
 
         @media (max-width: 800px) {
+
             .hero h1 {
-                font-size: 40px;
+                font-size: 42px;
             }
 
-            .services {
+            .menu {
                 grid-template-columns: 1fr;
             }
 
@@ -175,67 +192,142 @@
 <body>
 
 <header>
+
     <nav>
-        <div class="logo">NextGenTech</div>
+
+        <div class="logo">
+            TastyBite
+        </div>
 
         <ul>
             <li><a href="#home">Home</a></li>
-            <li><a href="#services">Services</a></li>
+            <li><a href="#menu">Menu</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
+
     </nav>
+
 </header>
 
 <section class="hero" id="home">
+
     <div class="hero-content">
 
-        <h1>Technology That Moves Your Business Forward</h1>
+        <h1>
+            Delicious Food,
+            <span>Made With Love.</span>
+        </h1>
 
         <p>
-            We create modern digital solutions that help
-            businesses grow, connect with customers and
-            improve their online presence.
+            Fresh ingredients, delicious recipes and
+            unforgettable meals made just for you.
         </p>
 
-        <a href="#contact" class="btn">
-            Get Started
+        <a href="#menu" class="btn">
+            View Our Menu
         </a>
 
     </div>
+
 </section>
 
-<section id="services">
+<section id="menu">
 
-    <h2 class="section-title">Our Services</h2>
+    <h2 class="section-title">
+        Our Popular Menu
+    </h2>
 
-    <div class="services">
+    <div class="menu">
 
-        <div class="service">
-            <h3>Web Development</h3>
+        <div class="food">
+
+            <h3>Grilled Chicken</h3>
 
             <p>
-                Responsive and modern websites designed
-                for businesses and personal brands.
+                Juicy grilled chicken served with
+                fresh vegetables and fries.
             </p>
+
+            <div class="price">
+                GH₵65
+            </div>
+
         </div>
 
-        <div class="service">
-            <h3>UI Design</h3>
+        <div class="food">
+
+            <h3>Classic Burger</h3>
 
             <p>
-                Clean and user-friendly interfaces designed
-                to create better digital experiences.
+                A delicious beef burger with fresh
+                vegetables and our special sauce.
             </p>
+
+            <div class="price">
+                GH₵50
+            </div>
+
         </div>
 
-        <div class="service">
-            <h3>Digital Solutions</h3>
+        <div class="food">
+
+            <h3>Jollof Rice</h3>
 
             <p>
-                Simple technology solutions that help
-                businesses improve their online presence.
+                Traditional Ghanaian-style jollof
+                rice served with chicken.
             </p>
+
+            <div class="price">
+                GH₵55
+            </div>
+
+        </div>
+
+        <div class="food">
+
+            <h3>Fried Rice</h3>
+
+            <p>
+                Flavorful fried rice prepared with
+                fresh vegetables and chicken.
+            </p>
+
+            <div class="price">
+                GH₵50
+            </div>
+
+        </div>
+
+        <div class="food">
+
+            <h3>Pizza</h3>
+
+            <p>
+                Freshly baked pizza topped with
+                cheese and your favorite toppings.
+            </p>
+
+            <div class="price">
+                GH₵75
+            </div>
+
+        </div>
+
+        <div class="food">
+
+            <h3>Fresh Juice</h3>
+
+            <p>
+                Refreshing natural fruit juice
+                made from fresh fruits.
+            </p>
+
+            <div class="price">
+                GH₵25
+            </div>
+
         </div>
 
     </div>
@@ -244,14 +336,16 @@
 
 <section class="about" id="about">
 
-    <h2 class="section-title">About NextGenTech</h2>
+    <h2 class="section-title">
+        About TastyBite
+    </h2>
 
     <div class="about-content">
 
         <p>
-            NextGenTech is a technology-focused business
-            dedicated to creating simple, modern and
-            effective digital solutions.
+            At TastyBite, we believe great food brings
+            people together. Our meals are prepared with
+            fresh ingredients and passion.
         </p>
 
     </div>
@@ -260,11 +354,13 @@
 
 <section class="contact" id="contact">
 
-    <h2 class="section-title">Let's Build Something Great</h2>
+    <h2 class="section-title">
+        Visit TastyBite
+    </h2>
 
     <p>
-        Ready to improve your online presence?
-        Contact our team today.
+        Ready for a delicious meal?
+        Get in touch with us today.
     </p>
 
     <a href="mailto:smcdigitalgh1@gmail.com" class="btn">
@@ -274,7 +370,11 @@
 </section>
 
 <footer>
-    <p>© 2026 NextGenTech. All Rights Reserved.</p>
+
+    <p>
+        © 2026 TastyBite Restaurant. All Rights Reserved.
+    </p>
+
 </footer>
 
 </body>
